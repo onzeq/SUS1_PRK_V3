@@ -11,3 +11,4 @@ fs=50000;           % Abtastrate
 simdur=1;           % Zeitspanne, die simuliert werden soll (1s)
 ts=1/fs;            % Abtastperiode
 Nsamps=simdur/ts;   % Anzahl Abtastwerte, die erzeugt werden
+%Walz is ne pussy
