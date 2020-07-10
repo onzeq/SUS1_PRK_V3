@@ -1,0 +1,1 @@
+%Signale Systeme1 Praktikum Nr 3 Jan Richert, Christian Walz, Jakob Roll 
