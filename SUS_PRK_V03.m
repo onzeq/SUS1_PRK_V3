@@ -161,16 +161,17 @@ xlabel('Zeit t in s');
 ylabel('Amplitude (ohne Einheit)');
 
 %-------------------------------------------------------------------------------
-%% System A Faltungen:
-tvec2 = 0: Ts : 2;
+tvec2 = -0.5: Ts : 1.5;
 tvec2 = tvec2(1:99999);
+%% System A Faltungen:
+%%signala
 system_A_a = conv(sig_a.samples, systema);
 systemA_a.samples = system_A_a;
 systemA_a.tsample= Ts;
 
 
 figure();
-plot(systemA_a.samples);
+plot(tvec2,systemA_a.samples);
 dodo=axis;
 dodo(1)=-0.015; dodo(2)=0.015;
 dodo(3)=0; dodo(4)=1.1;
@@ -182,9 +183,281 @@ ylabel('Amplitude (ohne Einheit)');
 %Erzeugung SpektrumPlot
 plot_signal_spectrum(systemA_a, 'Faltung Signal_a mit System_A Frequenzbereich');
 
+%%signalb
+system_A_b = conv(sigb.samples, systema);
+systemA_b.samples = system_A_b;
+systemA_b.tsample= Ts;
 
 
+figure();
+plot(tvec2,systemA_b.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_b mit System_a Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
 
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemA_b, 'Faltung Signal_b mit System_A Frequenzbereich');
+
+%%signalc
+system_A_c = conv(sigc.samples, systema);
+systemA_c.samples = system_A_c;
+systemA_c.tsample= Ts;
+
+
+figure();
+plot(tvec2,systemA_c.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_c mit System_a Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemA_c, 'Faltung Signal_c mit System_A Frequenzbereich');
+
+%%signalc
+system_A_d = conv(sigd.samples, systema);
+systemA_d.samples = system_A_d;
+systemA_d.tsample= Ts;
+
+
+figure();
+plot(tvec2,systemA_d.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_d mit System_a Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemA_d, 'Faltung Signal_d mit System_A Frequenzbereich');
+
+%% System B Faltungen:
+%%signala
+system_B_a = conv(sig_a.samples, systemb);
+systemB_a.samples = system_B_a;
+systemB_a.tsample= Ts;
+
+figure();
+plot(tvec2,systemB_a.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_a mit System_B Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemB_a, 'Faltung Signal_a mit System_B Frequenzbereich');
+
+%%signalb
+system_B_b = conv(sigb.samples, systemb);
+systemB_b.samples = system_B_b;
+systemB_b.tsample= Ts;
+
+figure();
+plot(tvec2,systemB_b.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_b mit System_B Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemB_b, 'Faltung Signal_b mit System_B Frequenzbereich');
+
+%%signalc
+system_B_c = conv(sigc.samples, systemb);
+systemB_c.samples = system_B_c;
+systemB_c.tsample= Ts;
+
+figure();
+plot(tvec2,systemB_c.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_c mit System_B Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemB_c, 'Faltung Signal_c mit System_B Frequenzbereich');
+
+%%signald
+system_B_d = conv(sigd.samples, systemb);
+systemB_d.samples = system_B_d;
+systemB_d.tsample= Ts;
+
+figure();
+plot(tvec2,systemB_d.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_d mit System_B Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemB_d, 'Faltung Signal_d mit System_B Frequenzbereich');
+
+%% System C Faltungen:
+%%signala
+system_C_a = conv(sig_a.samples, systemc);
+systemC_a.samples = system_C_a;
+systemC_a.tsample= Ts;
+
+figure();
+plot(tvec2,systemC_a.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_a mit System_C Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemC_a, 'Faltung Signal_a mit System_C Frequenzbereich');
+
+%%signalb
+system_C_b = conv(sigb.samples, systemc);
+systemC_b.samples = system_C_b;
+systemC_b.tsample= Ts;
+
+figure();
+plot(tvec2,systemC_b.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_b mit System_C Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemC_b, 'Faltung Signal_b mit System_C Frequenzbereich');
+
+%%signalc
+system_C_c = conv(sigc.samples, systemc);
+systemC_c.samples = system_C_c;
+systemC_c.tsample= Ts;
+
+figure();
+plot(tvec2,systemC_c.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_c mit System_C Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemC_c, 'Faltung Signal_c mit System_C Frequenzbereich');
+
+%%signald
+system_C_d = conv(sigd.samples, systemc);
+systemC_d.samples = system_C_d;
+systemC_d.tsample= Ts;
+
+figure();
+plot(tvec2,systemC_d.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_d mit System_C Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemC_d, 'Faltung Signal_d mit System_C Frequenzbereich');
+
+%% System D Faltungen:
+%%signala
+system_D_a = conv(sig_a.samples, systemd.samples);
+systemD_a.samples = system_D_a;
+systemD_a.tsample= Ts;
+
+figure();
+plot(tvec2,systemD_a.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_a mit System_D Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemD_a, 'Faltung Signal_a mit System_D Frequenzbereich');
+
+%%signalb
+system_D_b = conv(sigb.samples, systemd.samples);
+systemD_b.samples = system_D_b;
+systemD_b.tsample= Ts;
+
+figure();
+plot(tvec2,systemD_b.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_b mit System_D Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemD_b, 'Faltung Signal_b mit System_D Frequenzbereich');
+
+%%signalc
+system_D_c = conv(sigc.samples, systemd.samples);
+systemD_c.samples = system_D_c;
+systemD_c.tsample= Ts;
+
+figure();
+plot(tvec2,systemD_c.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_c mit System_D Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemD_c, 'Faltung Signal_c mit System_D Frequenzbereich');
+
+%%signald
+system_D_d = conv(sigd.samples, systemd.samples);
+systemD_d.samples = system_D_d;
+systemD_d.tsample= Ts;
+
+figure();
+plot(tvec2,systemD_d.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_d mit System_D Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemD_d, 'Faltung Signal_d mit System_D Frequenzbereich');
 
 %% Funktionen 
 
