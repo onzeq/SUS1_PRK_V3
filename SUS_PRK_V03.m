@@ -11,41 +11,87 @@ clear variables;
 %%----------------------------------------------------------------------------------------------------------------
 
 %%Allgemeine vorgabe T=10ms
-fs = 50000;
-Ts = 1/fs;
-tvec = -0.5: Ts : 0.5;
-tvec = tvec(1:50000);
+fs = 50000;             %Abtastrate
+Ts = 1/fs;              %Abtastperiode
+tvec = -0.5: Ts : 0.5;  %Zeitvektor
+tvec = tvec(1:50000);   %Zeitvektor Laenge anpassen
 
 simdur=1;           % Zeitspanne, die simuliert werden soll (1s)
 ts=1/fs;            % Abtastperiode
 Nsamps=simdur/ts;   % Anzahl Abtastwerte, die erzeugt werden
 
 %%Signale erzeugen
-%%signala
+%signala
 siga=square(2*pi*500*tvec);
-%plot(tvec,siga);
+
+figure();
+plot(tvec,siga);
+dodo=axis;
+dodo(1)=-0.01; dodo(2)=0.01;
+dodo(3)=-1.1; dodo(4)=1.1;
+axis(dodo);
+title('Signal_a alternierende Rechteckfolge 1ms');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
 sig_a.samples = siga;
 sig_a.tsample= Ts;
-%plot_signal_spectrum(sig_a);
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(sig_a, 'Spektrum S_a  [dBm]');
 
 %%signalb
 sigb= create_cos_rect(fs,500,-1,Nsamps);
 sig_template.tsample=sigb.tsample;
 sig_template.tstart=sigb.tstart;
-%plot(tvec,sigb.samples);
-plot_signal_spectrum(sigb);
+
+figure();
+plot(tvec,sigb.samples);
+dodo=axis;
+dodo(1)=-0.01; dodo(2)=0.01;
+dodo(3)=-1; dodo(4)=1;
+axis(dodo);
+title('Signal_b cosinus f = 500Hz');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(sigb , 'Spektrum S_b  [dBm]');
 
 %%signalc
 sigc= create_cos_rect(fs,2000,-1,Nsamps);
-%%plot(tvec,sigc.samples);
-%plot_signal_spectrum(sigc);
+
+figure();
+plot(tvec,sigc.samples);
+dodo=axis;
+dodo(1)=-0.005; dodo(2)=0.005;
+dodo(3)=-1; dodo(4)=1;
+axis(dodo);
+title('Signal_c cosinus f = 2000Hz');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(sigc, 'Spektrum S_c  [dBm]');
 
 %%signald
 sigd = create_sinc_rect(fs,125,-1,Nsamps);
-%%plot(tvec, sigd.samples);
-%plot_signal_spectrum(sigd);
+
+figure();
+plot(tvec,sigd.samples);
+dodo=axis;
+dodo(1)=-0.2; dodo(2)=0.2;
+dodo(3)=-0.25; dodo(4)=1;
+axis(dodo);
+title('Signal_d sinc 250 Nulldurchgaenge');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(sigd, 'Spektrum S_d  [dBm]' );
 
 %%Systeme erzeugen
+%Vektor gefuellt mit 0 erzeugen in richtiger Länge
 nullvec = -0.5: Ts : 0.5;
 nullvec = nullvec(1:50000);
 nullvec = 0*nullvec;
@@ -54,13 +100,32 @@ nullvec = 0*nullvec;
 systema = nullvec;
 systema(25001) = 1;
 systema(25051) = 1;
-%plot(tvec,systema);
 
-%%Systema --> dirac mit 1 bei 0 und 2 ms
+figure();
+plot(tvec,systema);
+dodo=axis;
+dodo(1)=-0.01; dodo(2)=0.01;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('System_A Impulsantwort');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+
+%%Systemb --> dirac mit 1 bei 0 und 2 ms
 systemb = nullvec;
 systemb(25001) = 1;
 systemb(25101) = 1;
-%plot(tvec,systemb);
+
+figure();
+plot(tvec,systemb);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('System_B Impulsantwort');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
 
 %%Systemc --> rect T=2ms
 systemc = nullvec;
@@ -69,18 +134,51 @@ systemc(25051) = 1;
 for it=24951:25051
     systemc(it)=1;       
 end
-%plot(tvec, systemc);
+
+figure();
+plot(tvec, systemc);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('System_C Impulsantwort');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
 
 %%Systemd --> sinc mit T = 2ms
 systemd = create_sinc_rect(fs,500,-1,Nsamps);
-%plot(tvec, systemd.samples);
+
+
+figure();
+plot(tvec, systemd.samples);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=-0.25; dodo(4)=1.1;
+axis(dodo);
+title('System_D Impulsantwort');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
 %-------------------------------------------------------------------------------
 %% System A Faltungen:
 system_A_a = conv(systema, sig_a.samples);
 systemA_a.samples = system_A_a;
 systemA_a.tsample= Ts;
+
+
+figure();
 plot(systemA_a.samples);
-plot_signal_spectrum(systemA_a);
+dodo=axis;
+dodo(1)=-0.015; dodo(2)=0.015;
+dodo(3)=0; dodo(4)=1.1;
+axis(dodo);
+title('Faltung Signal_a mit System_a Zeitbereich');
+xlabel('Zeit t in s');
+ylabel('Amplitude (ohne Einheit)');
+
+%Erzeugung SpektrumPlot
+plot_signal_spectrum(systemA_a, 'Faltung Signal_a mit System_A Frequenzbereich');
 
 
 
@@ -88,12 +186,6 @@ plot_signal_spectrum(systemA_a);
 
 %% Funktionen 
 
-%% Korrelationsfunktion entsprechend der Definition aus der Vorlesung
-function phi_xy=xcorr_RT(x,y)
-phi_xy=xcorr(x,y);
-phi_xy=phi_xy(end:-1:1);  % Vektor in umgekehrter Reihenfolge anordnen
-return
-end
 
 %% Erzeugung eines cosinus signals
 % fs sampling rate
@@ -154,6 +246,7 @@ sig_out.tsample=tsample;
 sig_out.tstart=timevec(1);
 return;
 end
+
 %% Erzeugung eines sinc signals
 % fs sampling rate
 % f0 base frequency of sinc 
@@ -212,8 +305,9 @@ title('timesignal');
 grid 'on';
 return;
 end
+
 %% Funktion um Signalspektrum darzustellen
-function [fvec,spec]=plot_signal_spectrum(insig)
+function [fvec,spec]=plot_signal_spectrum(insig, caption)
 % get the parameters
 samples = insig.samples;    % sample values
 sr= 1/insig.tsample;        % sampling rate
@@ -239,7 +333,7 @@ plot(fvec,powdbm,'m', 'LineWidth', 2);
 axis tight;
 ylabel('[dBm]');
 xlabel('frequency [Hz]');
-title('power spectrum [dBm]');
+title(caption);
 grid 'on';
 grid 'minor';
 return;
