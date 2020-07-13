@@ -162,7 +162,9 @@ ylabel('Amplitude (ohne Einheit)');
 
 %-------------------------------------------------------------------------------
 %% System A Faltungen:
-system_A_a = conv(systema, sig_a.samples);
+tvec2 = 0: Ts : 2;
+tvec2 = tvec2(1:99999);
+system_A_a = conv(sig_a.samples, systema);
 systemA_a.samples = system_A_a;
 systemA_a.tsample= Ts;
 
