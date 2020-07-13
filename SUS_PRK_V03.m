@@ -7,8 +7,9 @@ clear variables;
 % Wichtig: innerhalb einer Simulationskette nach Möglichkeit nur eine
 % 'leere' Signalstruktur als Vorlage für andere Signale erzeugen
 
+%% Aufgabe1
 %%----------------------------------------------------------------------------------------------------------------
-%%Aufgabe1
+
 %%Allgemeine vorgabe T=10ms
 fs = 50000;
 Ts = 1/fs;
@@ -22,21 +23,27 @@ Nsamps=simdur/ts;   % Anzahl Abtastwerte, die erzeugt werden
 %%Signale erzeugen
 %%signala
 siga=square(2*pi*500*tvec);
-%%plot(tvec,siga);
+%plot(tvec,siga);
+vec_a.samples = siga;
+vec_a.tsample= Ts;
+%plot_signal_spectrum(vec_a);
 
 %%signalb
 sigb= create_cos_rect(fs,500,-1,Nsamps);
 sig_template.tsample=sigb.tsample;
 sig_template.tstart=sigb.tstart;
-%%plot(tvec,sigb.samples);
+%plot(tvec,sigb.samples);
+%plot_signal_spectrum(sigb);
 
 %%signalc
 sigc= create_cos_rect(fs,2000,-1,Nsamps);
 %%plot(tvec,sigc.samples);
+%plot_signal_spectrum(sigc);
 
 %%signald
 sigd = create_sinc_rect(fs,125,-1,Nsamps);
 %%plot(tvec, sigd.samples);
+plot_signal_spectrum(sigd);
 
 %%Systeme erzeugen
 nullvec = -0.5: Ts : 0.5;
@@ -66,9 +73,16 @@ end
 
 %%Systemd --> sinc mit T = 2ms
 systemd = create_sinc_rect(fs,500,-1,Nsamps);
-plot(tvec, systemd.samples);
-
+%plot(tvec, systemd.samples);
 %-------------------------------------------------------------------------------
+%% System A Faltungen:
+
+
+
+
+
+
+
 %% Funktionen 
 
 %% Korrelationsfunktion entsprechend der Definition aus der Vorlesung
