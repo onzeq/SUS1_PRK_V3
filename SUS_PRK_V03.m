@@ -24,16 +24,16 @@ Nsamps=simdur/ts;   % Anzahl Abtastwerte, die erzeugt werden
 %%signala
 siga=square(2*pi*500*tvec);
 %plot(tvec,siga);
-vec_a.samples = siga;
-vec_a.tsample= Ts;
-%plot_signal_spectrum(vec_a);
+sig_a.samples = siga;
+sig_a.tsample= Ts;
+%plot_signal_spectrum(sig_a);
 
 %%signalb
 sigb= create_cos_rect(fs,500,-1,Nsamps);
 sig_template.tsample=sigb.tsample;
 sig_template.tstart=sigb.tstart;
 %plot(tvec,sigb.samples);
-%plot_signal_spectrum(sigb);
+plot_signal_spectrum(sigb);
 
 %%signalc
 sigc= create_cos_rect(fs,2000,-1,Nsamps);
@@ -43,7 +43,7 @@ sigc= create_cos_rect(fs,2000,-1,Nsamps);
 %%signald
 sigd = create_sinc_rect(fs,125,-1,Nsamps);
 %%plot(tvec, sigd.samples);
-plot_signal_spectrum(sigd);
+%plot_signal_spectrum(sigd);
 
 %%Systeme erzeugen
 nullvec = -0.5: Ts : 0.5;
@@ -76,8 +76,11 @@ systemd = create_sinc_rect(fs,500,-1,Nsamps);
 %plot(tvec, systemd.samples);
 %-------------------------------------------------------------------------------
 %% System A Faltungen:
-
-
+system_A_a = conv(systema, sig_a.samples);
+systemA_a.samples = system_A_a;
+systemA_a.tsample= Ts;
+plot(systemA_a.samples);
+plot_signal_spectrum(systemA_a);
 
 
 
